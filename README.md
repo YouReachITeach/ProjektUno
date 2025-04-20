@@ -1,3 +1,9 @@
-meddl leude
+Bisher ist die Basic Layered Architecture in der Version 0.1.0
 
-ich glaube nicht pascal#hier schreube iuch was fadzefgaig
+Es Fehlt Architektur mäßig noch
+
+- Security(JWT Token)
+- Logging
+- Error Handling
+- Testing
+- Welche Strategy beim Speichern
