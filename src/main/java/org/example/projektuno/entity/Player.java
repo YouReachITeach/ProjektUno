@@ -37,26 +37,6 @@ public class Player implements Serializable {
     }
 
 
-    // Add and Remove a league to the player
-    public boolean addLeague(League league) {
-        if (league != null) {
-            this.leagues.add(league);
-            league.getPlayers().add(this);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean removeLeague(League league) {
-        if (league == null || !this.leagues.contains(league)) {
-            return false;
-        }
-        this.leagues.remove(league);
-        league.getPlayers().remove(this);
-        return true;
-    }
-
-
     //getters and setters
 
     public List<League> getLeagues() {
