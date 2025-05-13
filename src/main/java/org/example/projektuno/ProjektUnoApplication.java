@@ -51,43 +51,43 @@ public class ProjektUnoApplication {
 //        }
 
 
-        Random random = new Random();
-
-        // Erstelle 50 Spieler
-        for (int i = 0; i < 50; i++) {
-            int playerType = random.nextInt(3); // 0 = OutsideHitter, 1 = ServingSpecialist, 2 = Setter
-
-            switch (playerType) {
-                case 0 -> {
-                    OutsideHitter outsideHitter = new OutsideHitter(
-                            "Outside Hitter " + i,
-                            random.nextInt(100), // spikes
-                            random.nextInt(50),  // blocks
-                            random.nextInt(30),  // serviceAces
-                            random.nextInt(20)   // attackErrors
-                    );
-                    playerService.createPlayer(outsideHitter);
-                }
-                case 1 -> {
-                    ServingSpecialist servingSpecialist = new ServingSpecialist(
-                            "Serving Specialist " + i,
-                            random.nextInt(50),  // serviceAces
-                            random.nextInt(20),  // serviceErrors
-                            random.nextInt(100)  // servicePoints
-                    );
-                    playerService.createPlayer(servingSpecialist);
-                }
-                case 2 -> {
-                    Setter setter = new Setter(
-                            "Setter " + i, i,
-                            random.nextInt(100), // assists
-                            random.nextInt(50),  // serviceAces
-                            random.nextInt(30),  // blocks
-                            random.nextInt(20)   // settingErrors
-                    );
-                    playerService.createPlayer(setter);
-                }
-            }
-        }
+//        Random random = new Random();
+//
+//        // Erstelle 50 Spieler
+//        for (int i = 0; i < 50; i++) {
+//            int playerType = random.nextInt(3); // 0 = OutsideHitter, 1 = ServingSpecialist, 2 = Setter
+//
+//            switch (playerType) {
+//                case 0 -> {
+//                    OutsideHitter outsideHitter = new OutsideHitter(
+//                            "Outside Hitter " + i,
+//                            random.nextInt(100), // spikes
+//                            random.nextInt(50),  // blocks
+//                            random.nextInt(30),  // serviceAces
+//                            random.nextInt(20)   // attackErrors
+//                    );
+//                    playerService.createPlayer(outsideHitter);
+//                }
+//                case 1 -> {
+//                    ServingSpecialist servingSpecialist = new ServingSpecialist(
+//                            "Serving Specialist " + i,
+//                            random.nextInt(50),  // serviceAces
+//                            random.nextInt(20),  // serviceErrors
+//                            random.nextInt(100)  // servicePoints
+//                    );
+//                    playerService.createPlayer(servingSpecialist);
+//                }
+//                case 2 -> {
+//                    Setter setter = new Setter(
+//                            "Setter " + i, i,
+//                            random.nextInt(100), // assists
+//                            random.nextInt(50),  // serviceAces
+//                            random.nextInt(30),  // blocks
+//                            random.nextInt(20)   // settingErrors
+//                    );
+//                    playerService.createPlayer(setter);
+//                }
+//            }
+//        }
     }
 }
