@@ -3,6 +3,7 @@ package org.example.projektuno.service;
 import org.example.projektuno.entity.League;
 import org.example.projektuno.entity.Player;
 import org.example.projektuno.repositories.LeagueRepository;
+import org.example.projektuno.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ import java.util.List;
 public class LeagueService {
     @Autowired
     private LeagueRepository leagueRepository;
+    @Autowired
+    private PlayerRepository playerRepository;
 
     public List<League> getAllLeagues() {
         return leagueRepository.findAll();
@@ -38,7 +41,7 @@ public class LeagueService {
         leagueRepository.deleteById(id);
     }
 
-    public static boolean addPlayerToLeague(Player player, League league) {
+    public boolean addPlayerToLeague(Player player, League league) {
         if (player == null || league == null) {
             return false;
         }
@@ -58,10 +61,12 @@ public class LeagueService {
         }
         player.getLeagues().add(league);
         league.getPlayers().add(player);
+        leagueRepository.save(league); // Speichern der Liga, um die Beziehung zu aktualisieren
+        playerRepository.save(player); // Speichern des Spielers, um die Beziehung zu aktualisieren
         return true;
     }
 
-    public static boolean removePlayerFromLeague(Player player, League league) {
+    public boolean removePlayerFromLeague(Player player, League league) {
         if (player == null || league == null) {
             return false;
         }
@@ -76,6 +81,8 @@ public class LeagueService {
         if (!league.getPlayers().remove(player)) {
             return false;
         }
+        leagueRepository.save(league); // Speichern der Liga, um die Beziehung zu aktualisieren
+        playerRepository.save(player); // Speichern des Spielers, um die Beziehung zu aktualisieren
         return true;
     }
 }
