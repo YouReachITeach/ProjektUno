@@ -7,4 +7,5 @@ Es Fehlt Architektur mäßig noch
 - Error Handling
 - Testing
 
-ACHTUNG: um einen spieler in einer Liga spielen zu lassen/löschen, nutze die Methoden in LeagueService.
+ACHTUNG: um einen spieler in einer Liga spielen zu lassen/löschen, nutze die Methoden in LeagueService.(maybe mal nen
+playerleagueservice machen)
