@@ -16,7 +16,7 @@ public class Setter extends Player {
         super();
     }
 
-    public Setter(String name, int age, String position, int assists, int serviceAces, int blocks, int settingErrors) {
+    public Setter(String name, int age, int assists, int serviceAces, int blocks, int settingErrors) {
         super(name);
         this.assists = assists;
         this.serviceAces = serviceAces;
