@@ -1,13 +1,13 @@
 package org.example.projektuno.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.io.Serializable;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "playerType")
 public class Player implements Serializable {
     @Id
     @GeneratedValue
@@ -18,7 +18,7 @@ public class Player implements Serializable {
     public Player() {
     }
 
-    private Player(String name) {
+    public Player(String name) {
         this.name = name;
     }
 

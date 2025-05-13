@@ -1,5 +1,6 @@
 package org.example.projektuno;
 
+import org.example.projektuno.dataGenerators.LeagueNameGenerator;
 import org.example.projektuno.entity.League;
 import org.example.projektuno.entity.Player;
 import org.example.projektuno.service.LeagueService;
@@ -24,11 +25,24 @@ public class ProjektUnoApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void execCodeAfterStartup() {
+
+        for (int i = 0; i < 50; i++) { // Generate 10 random leagues
+            League league = new League();
+            league.setName(LeagueNameGenerator.generateRandomLeagueName());
+            leagueService.createLeague(league);
+        }
+
         Player player = new Player();
-        player.setName("John Doe");
+        player.setName("John Pork");
         playerService.createPlayer(player);
-        League league = new League();
-        league.setName("League of Legends");
-        leagueService.createLeague(league);
+        for (int i = 0; i < 40; i++) {
+            Player player1 = new Player();
+            String add = "";
+            for (int j = 0; j < i; j++) {
+                add += "ab";
+            }
+            player1.setName("Player " + add);
+            playerService.createPlayer(player1);
+        }
     }
 }
