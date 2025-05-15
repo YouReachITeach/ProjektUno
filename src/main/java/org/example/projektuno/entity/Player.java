@@ -21,6 +21,9 @@ public class Player implements Serializable {
     @Column
     private int price;
 
+    @ManyToMany
+    private List<UserTeam> userTeams;
+
 
     @ManyToMany(mappedBy = "players")
     private List<League> leagues;
@@ -28,16 +31,19 @@ public class Player implements Serializable {
     // Constructors
     public Player() {
         this.leagues = new ArrayList<>();
+        this.userTeams = new ArrayList<>();
     }
 
     public Player(String name) {
         this.name = name;
         this.leagues = new ArrayList<>();
+        this.userTeams = new ArrayList<>();
     }
 
     public Player(String name, List<League> leagues) {
         this.name = name;
         this.leagues = leagues;
+        this.userTeams = new ArrayList<>();
     }
 
     // Getter for JSON output (used in frontend)
@@ -47,6 +53,15 @@ public class Player implements Serializable {
     }
 
     // Standard Getters and Setters
+
+    public List<UserTeam> getUserTeams() {
+        return userTeams;
+    }
+
+    public void setUserTeams(List<UserTeam> userTeams) {
+        this.userTeams = userTeams;
+    }
+
     public List<League> getLeagues() {
         return leagues;
     }
@@ -72,16 +87,14 @@ public class Player implements Serializable {
     }
 
     public int getPrice() {
-    return price;
+        return price;
     }
 
     public void setPrice(int price) {
-    this.price = price;
+        this.price = price;
     }
 
-    
 
-   
 }
 
 

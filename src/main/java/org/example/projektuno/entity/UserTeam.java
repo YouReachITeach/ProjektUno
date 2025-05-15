@@ -1,6 +1,7 @@
 package org.example.projektuno.entity;
 
 import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +17,13 @@ public class UserTeam {
     @OneToOne
     private AppUser user;
 
-   @ManyToMany(fetch = FetchType.EAGER)
+
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Player> players = new ArrayList<>();
 
 
-    public UserTeam() {}
+    public UserTeam() {
+    }
 
     public UserTeam(String name, AppUser user) {
         this.name = name;
@@ -28,17 +31,31 @@ public class UserTeam {
     }
 
     // Getter & Setter
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public AppUser getUser() { return user; }
+    public AppUser getUser() {
+        return user;
+    }
 
-    public void setUser(AppUser user) { this.user = user; }
+    public void setUser(AppUser user) {
+        this.user = user;
+    }
 
-    public List<Player> getPlayers() { return players; }
+    public List<Player> getPlayers() {
+        return players;
+    }
 
-    public void setPlayers(List<Player> players) { this.players = players; }
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
 }
