@@ -99,6 +99,13 @@ public class Player implements Serializable {
         this.price = price;
     }
 
+      public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
 
 }
 
