@@ -59,6 +59,17 @@ public void execCodeAfterStartup() {
     } else {
         System.out.println("ℹ️ Testuser existiert bereits – Setup übersprungen.");
     }
+
+    // ✅ Neuer Spieler wird immer erstellt – innerhalb der Methode!
+    if (playerService.getAllPlayers().stream().noneMatch(p -> p.getName().equals("Freier Felix"))) {
+        Player freeAgent = new OppositeHitter("Freier Felix", 10, 10, 10, 1);
+    freeAgent.setPrice(500000); // 500k
+    playerService.createPlayer(freeAgent);
+
+        System.out.println("➕ Freier Spieler hinzugefügt.");
+    } else {
+        System.out.println("ℹ️ Freier Spieler existiert bereits.");
+    }
 }
 
 

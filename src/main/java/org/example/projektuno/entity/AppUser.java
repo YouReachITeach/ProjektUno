@@ -11,6 +11,10 @@ public class AppUser {
     @Column(unique = true)
     private String username;
 
+    @Column
+    private int budget = 1000000; // Beispiel: Startbudget 1 Mio.
+
+
     private String email;
 
     private String password; // Wird erstmal im Klartext gespeichert (nicht empfohlen, aber okay für den Anfang)
@@ -38,5 +42,10 @@ public class AppUser {
     public String getPassword() { return password; }
 
     public void setPassword(String password) { this.password = password; }
+
+    public int getBudget() { return budget; }
+
+public void setBudget(int budget) { this.budget = budget; }
+
 }
 

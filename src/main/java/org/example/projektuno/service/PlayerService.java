@@ -4,6 +4,8 @@ import org.example.projektuno.entity.Player;
 import org.example.projektuno.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+
 
 import java.util.Collection;
 
@@ -35,4 +37,9 @@ public class PlayerService {
     public void deletePlayer(int id) {
         playerRepository.deleteById(id);
     }
+
+    public List<Player> getPlayersNotInAnyTeam() {
+    return playerRepository.findPlayersNotInAnyTeam();
+}
+
 }

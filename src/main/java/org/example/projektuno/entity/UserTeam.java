@@ -1,4 +1,3 @@
-
 package org.example.projektuno.entity;
 
 import jakarta.persistence.*;

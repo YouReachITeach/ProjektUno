@@ -49,4 +49,21 @@ public class UserTeamController {
         boolean success = teamService.removePlayerFromTeam(teamId, playerId);
         return success ? ResponseEntity.ok("Player removed") : ResponseEntity.badRequest().body("Could not remove player");
     }
+
+    @PostMapping("/{teamId}/buyPlayer/{playerId}")
+    public ResponseEntity<String> buyPlayer(@PathVariable Long teamId, @PathVariable int playerId) {
+    boolean success = teamService.buyPlayer(teamId, playerId);
+    return success ? ResponseEntity.ok("Spieler erfolgreich gekauft.")
+                   : ResponseEntity.badRequest().body("Kauf fehlgeschlagen (Team, Spieler oder Budgetproblem).");
+}
+
+    @DeleteMapping("/{teamId}/sellPlayer/{playerId}")
+public ResponseEntity<String> sellPlayer(@PathVariable Long teamId, @PathVariable int playerId) {
+    boolean success = teamService.sellPlayer(teamId, playerId);
+    return success
+        ? ResponseEntity.ok("Spieler verkauft")
+        : ResponseEntity.badRequest().body("Verkauf fehlgeschlagen.");
+}
+
+
 }
