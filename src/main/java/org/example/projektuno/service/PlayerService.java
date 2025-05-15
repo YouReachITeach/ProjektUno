@@ -5,6 +5,9 @@ import org.example.projektuno.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+
 import java.util.Collection;
 import java.util.List;
 
@@ -40,9 +43,9 @@ public class PlayerService {
     }
 
     public List<Player> getPlayersNotInAnyTeam() {
-    return playerRepository.findPlayersNotInAnyTeam();
+        return playerRepository.findAll().stream()
+                .filter(p -> p.getUserTeams() == null || p.getUserTeams().isEmpty())
+                .toList();
     }
-    
-    
 
 }

@@ -6,14 +6,14 @@ import org.example.projektuno.service.UserTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Optional;
+
 import org.example.projektuno.service.AppUserService;
 
 
-
-
 @RestController
-@RequestMapping("/api/team")
+@RequestMapping("/api/userTeam")
 public class UserTeamController {
 
     @Autowired
@@ -22,20 +22,20 @@ public class UserTeamController {
     @Autowired
     private AppUserService userService;
 
-    @GetMapping("/byUser/{userId}")
+    @GetMapping("/byUserID/{userId}")
     public ResponseEntity<?> getTeamByUser(@PathVariable Long userId) {
         Optional<UserTeam> team = teamService.getTeamByUserId(userId);
         return team.map(ResponseEntity::ok)
-                   .orElse(ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/create")
+    @PostMapping("/createTeam")
     public ResponseEntity<UserTeam> createTeam(@RequestParam String name, @RequestParam Long userId) {
         AppUser user = userService.getUserById(userId)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
         UserTeam team = teamService.createTeamForUser(name, user);
         return ResponseEntity.ok(team);
-}
+    }
 
 
     @PostMapping("/{teamId}/addPlayer/{playerId}")
