@@ -28,13 +28,9 @@ public class Player implements Serializable {
     @ManyToMany(mappedBy = "players")
     private List<League> leagues;
 
-    @Column
-    private int price = 100;
 
     @Column
     private Integer points = 0;
-
-
 
 
     // Constructors
