@@ -1,8 +1,8 @@
 package org.example.projektuno.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,12 +18,17 @@ public class Player implements Serializable {
 
     private String name;
 
-    @Column
-    private int price;
-
-
     @ManyToMany(mappedBy = "players")
     private List<League> leagues;
+
+    @Column
+    private int price = 100;
+
+    @Column
+    private Integer points = 0;
+
+
+
 
     // Constructors
     public Player() {
@@ -46,7 +51,8 @@ public class Player implements Serializable {
         return this.getClass().getSimpleName().toUpperCase();
     }
 
-    // Standard Getters and Setters
+    //getters and setters
+
     public List<League> getLeagues() {
         return leagues;
     }
@@ -72,17 +78,21 @@ public class Player implements Serializable {
     }
 
     public int getPrice() {
-    return price;
+        return price;
     }
 
     public void setPrice(int price) {
-    this.price = price;
+        this.price = price;
     }
 
-    
+    public int getPoints() {
+        return points;
+    }
 
-   
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
 }
-
 
 

@@ -4,19 +4,20 @@ import org.example.projektuno.entity.Player;
 import org.example.projektuno.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
-    public Collection<Player> getAllPlayers() {
-        return playerRepository.findAll();
+    public List<Player> getAllPlayers() {
+    return playerRepository.findAll();
     }
+
+    
 
     public Player getPlayerById(int id) {
         return playerRepository.findById(id).orElse(null);
@@ -40,6 +41,8 @@ public class PlayerService {
 
     public List<Player> getPlayersNotInAnyTeam() {
     return playerRepository.findPlayersNotInAnyTeam();
-}
+    }
+    
+    
 
 }

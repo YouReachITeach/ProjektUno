@@ -12,7 +12,7 @@ public class AppUser {
     private String username;
 
     @Column
-    private int budget = 1000000; // Beispiel: Startbudget 1 Mio.
+    private int budget = 1000; // Beispiel: Startbudget 1 Mio.
 
 
     private String email;
