@@ -25,10 +25,10 @@ public class AppUserController {
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         Optional<AppUser> user = userService.getUserById(id);
         return user.map(ResponseEntity::ok)
-                   .orElse(ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/createUser")
     public AppUser createUser(@RequestBody AppUser user) {
         return userService.createUser(user);
     }
