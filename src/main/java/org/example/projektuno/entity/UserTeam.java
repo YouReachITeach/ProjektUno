@@ -30,9 +30,10 @@ public class UserTeam {
     public UserTeam() {
     }
 
-    public UserTeam(String name, AppUser user) {
+    public UserTeam(String name, AppUser user, int budget) {
         this.name = name;
         this.user = user;
+        this.budget = budget;
     }
 
     // Getter & Setter

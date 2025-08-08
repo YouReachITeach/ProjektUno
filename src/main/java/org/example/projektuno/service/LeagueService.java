@@ -1,6 +1,6 @@
 package org.example.projektuno.service;
 
-import org.apache.catalina.User;
+
 import org.example.projektuno.entity.League;
 import org.example.projektuno.entity.Player;
 import org.example.projektuno.entity.UserTeam;
@@ -10,9 +10,7 @@ import org.example.projektuno.repositories.UserTeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class LeagueService {
@@ -57,6 +55,18 @@ public class LeagueService {
             return true;
         }
         return false;
+    }
+
+    public Set<Player> getFreePlayers(int teamId) {
+        Optional<League> league = leagueRepository.findById(teamId);
+        if (league.isEmpty()) return null;
+        Map<Player, UserTeam> playersMap = league.get().getPlayersMap();
+        for (Player player : playersMap.keySet()) {
+            if (playersMap.get(player) != null) {
+                playersMap.remove(player);
+            }
+        }
+        return playersMap.keySet();
     }
 
 

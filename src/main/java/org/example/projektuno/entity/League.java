@@ -26,10 +26,6 @@ public class League implements Serializable {
         this.players = new HashMap<>();
     }
 
-    public League(String name) {
-        this.name = name;
-        this.players = new HashMap<>();
-    }
 
     public League(String name, List<Player> players) {
         this.name = name;
@@ -72,6 +68,10 @@ public class League implements Serializable {
         for (Player player : players) {
             this.players.put(player, null); // Assuming players owner is not set initially
         }
+    }
+
+    public void setPlayers(Map<Player, UserTeam> players) {
+        this.players = players;
     }
 
 

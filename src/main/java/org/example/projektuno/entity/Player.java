@@ -1,12 +1,10 @@
 package org.example.projektuno.entity;
 
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -21,31 +19,16 @@ public class Player implements Serializable {
     @Column
     private int price;
 
-
-    @ManyToMany(mappedBy = "players")
-    private List<League> leagues;
-
-
     @Column
     private Integer points = 0;
 
 
     // Constructors
     public Player() {
-        this.leagues = new ArrayList<>();
-
     }
 
     public Player(String name) {
         this.name = name;
-        this.leagues = new ArrayList<>();
-
-    }
-
-    public Player(String name, List<League> leagues) {
-        this.name = name;
-        this.leagues = leagues;
-
     }
 
     // Getter for JSON output (used in frontend)
@@ -56,14 +39,6 @@ public class Player implements Serializable {
 
     // Standard Getters and Setters
 
-
-    public List<League> getLeagues() {
-        return leagues;
-    }
-
-    public void setLeagues(List<League> leagues) {
-        this.leagues = leagues;
-    }
 
     public void setName(String name) {
         this.name = name;

@@ -17,10 +17,9 @@ public class PlayerService {
     private PlayerRepository playerRepository;
 
     public List<Player> getAllPlayers() {
-    return playerRepository.findAll();
+        return playerRepository.findAll();
     }
 
-    
 
     public Player getPlayerById(int id) {
         return playerRepository.findById(id).orElse(null);
@@ -42,10 +41,5 @@ public class PlayerService {
         playerRepository.deleteById(id);
     }
 
-    public List<Player> getPlayersNotInAnyTeam() {
-        return playerRepository.findAll().stream()
-                .filter(p -> p.getUserTeams() == null || p.getUserTeams().isEmpty())
-                .toList();
-    }
 
 }

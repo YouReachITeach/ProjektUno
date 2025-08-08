@@ -11,6 +11,7 @@ import org.example.projektuno.repositories.UserTeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,12 +28,18 @@ public class UserTeamService {
 
     @Autowired
     private LeagueService leagueService;
+    @Autowired
+    private UserTeamRepository userTeamRepository;
 
 
     // Ein neues Team für einen User anlegen
-    public UserTeam createTeamForUser(String teamName, AppUser user) {
-        UserTeam team = new UserTeam(teamName, user);
+    public UserTeam createTeamForUser(String teamName, AppUser user, int budget) {
+        UserTeam team = new UserTeam(teamName, user, budget);
         return teamRepository.save(team);
+    }
+
+    public List<UserTeam> getAllUserTeams() {
+        return userTeamRepository.findAll();
     }
 
     @Transactional
