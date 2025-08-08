@@ -2,6 +2,9 @@ package org.example.projektuno.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class AppUser {
     @Id
@@ -11,16 +14,18 @@ public class AppUser {
     @Column(unique = true)
     private String username;
 
-    @Column
-    private int budget = 1000; // Beispiel: Startbudget 1 Mio.
 
+    @Column
+    @OneToMany
+    private List<UserTeam> userTeams = new ArrayList<>();
 
     private String email;
 
     private String password; // Wird erstmal im Klartext gespeichert (nicht empfohlen, aber okay für den Anfang)
 
     // Konstruktoren
-    public AppUser() {}
+    public AppUser() {
+    }
 
     public AppUser(String username, String email, String password) {
         this.username = username;
@@ -29,23 +34,34 @@ public class AppUser {
     }
 
     // Getter & Setter
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getUsername() { return username; }
+    public String getUsername() {
+        return username;
+    }
 
-    public void setUsername(String username) { this.username = username; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public String getEmail() { return email; }
+    public String getEmail() {
+        return email;
+    }
 
-    public void setEmail(String email) { this.email = email; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password;
+    }
 
-    public void setPassword(String password) { this.password = password; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public int getBudget() { return budget; }
-
-public void setBudget(int budget) { this.budget = budget; }
 
 }
 

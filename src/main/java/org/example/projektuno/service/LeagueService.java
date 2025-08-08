@@ -1,14 +1,18 @@
 package org.example.projektuno.service;
 
+import org.apache.catalina.User;
 import org.example.projektuno.entity.League;
 import org.example.projektuno.entity.Player;
+import org.example.projektuno.entity.UserTeam;
 import org.example.projektuno.repositories.LeagueRepository;
 import org.example.projektuno.repositories.PlayerRepository;
+import org.example.projektuno.repositories.UserTeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LeagueService {
@@ -16,6 +20,9 @@ public class LeagueService {
     private LeagueRepository leagueRepository;
     @Autowired
     private PlayerRepository playerRepository;
+    @Autowired
+    private UserTeamRepository teamRepository;
+
 
     public List<League> getAllLeagues() {
         return leagueRepository.findAll();
@@ -41,49 +48,17 @@ public class LeagueService {
         leagueRepository.deleteById(id);
     }
 
-    public boolean addPlayerToLeague(Player player, League league) {
-        if (player == null || league == null) {
-            return false;
-        }
+    public boolean addPlayerToUserTeam(League league, Player player, UserTeam userTeam) {
 
-        // Beide Seiten der Beziehung aktualisieren
-        if (player.getLeagues() == null) {
-            player.setLeagues(new ArrayList<>());
+        //in the Big Map, check if player is available and add new owner-team to the map
+        if (league.getPlayersMap().get(player) == null) {
+            league.getPlayersMap().put(player, userTeam);
+            leagueRepository.save(league);
+            return true;
         }
-        if (league.getPlayers() == null) {
-            league.setPlayers(new ArrayList<>());
-        }
-        if (player.getLeagues().contains(league)) {
-            return false; // Spieler ist bereits in der Liga
-        }
-        if (league.getPlayers().contains(player)) {
-            return false; // Liga enthält bereits den Spieler
-        }
-        player.getLeagues().add(league);
-        league.getPlayers().add(player);
-        leagueRepository.save(league); // Speichern der Liga, um die Beziehung zu aktualisieren
-        playerRepository.save(player); // Speichern des Spielers, um die Beziehung zu aktualisieren
-        return true;
+        return false;
     }
 
-    public boolean removePlayerFromLeague(Player player, League league) {
-        if (player == null || league == null) {
-            return false;
-        }
 
-        // Beide Seiten der Beziehung aktualisieren
-        if (player.getLeagues() == null || league.getPlayers() == null) {
-            return false;
-        }
-        if (!player.getLeagues().remove(league)) {
-            return false;
-        }
-        if (!league.getPlayers().remove(player)) {
-            return false;
-        }
-        leagueRepository.save(league); // Speichern der Liga, um die Beziehung zu aktualisieren
-        playerRepository.save(player); // Speichern des Spielers, um die Beziehung zu aktualisieren
-        return true;
-    }
 }
 

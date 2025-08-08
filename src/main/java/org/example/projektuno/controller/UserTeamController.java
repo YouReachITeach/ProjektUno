@@ -39,8 +39,8 @@ public class UserTeamController {
 
 
     @PostMapping("/{teamId}/addPlayer/{playerId}")
-    public ResponseEntity<String> addPlayer(@PathVariable Long teamId, @PathVariable int playerId) {
-        boolean success = teamService.addPlayerToTeam(teamId, playerId);
+    public ResponseEntity<?> addPlayer(@PathVariable Long teamId, @PathVariable int playerId) {
+        boolean success = teamService.addPlayerToUserTeam(teamId, playerId);
         return success ? ResponseEntity.ok("Player added") : ResponseEntity.badRequest().body("Could not add player");
     }
 
@@ -52,18 +52,18 @@ public class UserTeamController {
 
     @PostMapping("/{teamId}/buyPlayer/{playerId}")
     public ResponseEntity<String> buyPlayer(@PathVariable Long teamId, @PathVariable int playerId) {
-    boolean success = teamService.buyPlayer(teamId, playerId);
-    return success ? ResponseEntity.ok("Spieler erfolgreich gekauft.")
-                   : ResponseEntity.badRequest().body("Kauf fehlgeschlagen (Team, Spieler oder Budgetproblem).");
-}
+        boolean success = teamService.buyPlayer(teamId, playerId);
+        return success ? ResponseEntity.ok("Spieler erfolgreich gekauft.")
+                : ResponseEntity.badRequest().body("Kauf fehlgeschlagen (Team, Spieler oder Budgetproblem).");
+    }
 
     @DeleteMapping("/{teamId}/sellPlayer/{playerId}")
-public ResponseEntity<String> sellPlayer(@PathVariable Long teamId, @PathVariable int playerId) {
-    boolean success = teamService.sellPlayer(teamId, playerId);
-    return success
-        ? ResponseEntity.ok("Spieler verkauft")
-        : ResponseEntity.badRequest().body("Verkauf fehlgeschlagen.");
-}
+    public ResponseEntity<String> sellPlayer(@PathVariable Long teamId, @PathVariable int playerId) {
+        boolean success = teamService.sellPlayer(teamId, playerId);
+        return success
+                ? ResponseEntity.ok("Spieler verkauft")
+                : ResponseEntity.badRequest().body("Verkauf fehlgeschlagen.");
+    }
 
 
 }

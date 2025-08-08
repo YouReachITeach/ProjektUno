@@ -14,11 +14,16 @@ public class UserTeam {
 
     private String name;
 
-    @OneToOne
+    @ManyToOne
     private AppUser user;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private League league;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    private int budget = 1000;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Player> players = new ArrayList<>();
 
 
@@ -57,5 +62,21 @@ public class UserTeam {
 
     public void setPlayers(List<Player> players) {
         this.players = players;
+    }
+
+    public League getLeague() {
+        return league;
+    }
+
+    public void setLeague(League league) {
+        this.league = league;
+    }
+
+    public int getBudget() {
+        return budget;
+    }
+
+    public void setBudget(int budget) {
+        this.budget = budget;
     }
 }
