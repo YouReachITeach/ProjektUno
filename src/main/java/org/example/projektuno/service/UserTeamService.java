@@ -36,15 +36,18 @@ public class UserTeamService {
     }
 
     @Transactional
-    public boolean addPlayerToUserTeam(Long teamId, int playerId) {
+    public boolean addPlayerToUserTeam(Long teamId, int playerId, boolean verrechnen) {
         //get player, userTeam and the teams league from the DB
-        Optional<UserTeam> team = teamRepository.findByIdWithLeague(teamId);
+        Optional<UserTeam> team = teamRepository.findById(teamId);
         if (team.isEmpty()) return false;
         Optional<Player> playerOptional = playerRepository.findById(playerId);
         if (playerOptional.isEmpty()) return false;
         UserTeam userTeam = team.get();
         Player player = playerOptional.get();
         League league = userTeam.getLeague(); // Now safe to access - league is already loaded
+
+        //budget check nur wenn verrechnet wird
+        if ((userTeam.getBudget() < player.getPrice()) && verrechnen) return false;
 
         //if team already owns this player, abort
         if (userTeam.getPlayers().contains(player)) return false;
@@ -56,33 +59,10 @@ public class UserTeamService {
 
         //add the Player to the Teams player list
         userTeam.getPlayers().add(player);
-        teamRepository.save(userTeam);
-        return true;
-    }
-
-    @Transactional
-    public boolean buyPlayerToUserTeam(Long teamId, int playerId) {
-        //get player, userTeam and the teams league from the DB
-        Optional<UserTeam> team = teamRepository.findByIdWithLeague(teamId);
-        if (team.isEmpty()) return false;
-        Optional<Player> playerOptional = playerRepository.findById(playerId);
-        if (playerOptional.isEmpty()) return false;
-        UserTeam userTeam = team.get();
-        Player player = playerOptional.get();
-        if (userTeam.getBudget() < player.getPrice()) return false;
-        League league = userTeam.getLeague(); // Now safe to access - league is already loaded
-
-        //if team already owns this player, abort
-        if (userTeam.getPlayers().contains(player)) return false;
-
-        //in the Big Map, check if player is available and add new owner-team to the map
-        if (!leagueService.addPlayerToUserTeam(league, player, userTeam)) {
-            return false;
+        //preis wird dem team nur berechnet wenn verrechnen true ist.
+        if (verrechnen) {
+            userTeam.setBudget(userTeam.getBudget() - player.getPrice());
         }
-
-        //add the Player to the Teams player list
-        userTeam.getPlayers().add(player);
-        userTeam.setBudget(userTeam.getBudget() - player.getPrice());
         teamRepository.save(userTeam);
         return true;
     }

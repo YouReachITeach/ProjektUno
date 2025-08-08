@@ -40,7 +40,7 @@ public class UserTeamController {
 
     @PostMapping("/{teamId}/addPlayer/{playerId}")
     public ResponseEntity<?> addPlayer(@PathVariable Long teamId, @PathVariable int playerId) {
-        boolean success = teamService.addPlayerToUserTeam(teamId, playerId);
+        boolean success = teamService.addPlayerToUserTeam(teamId, playerId, false);
         return success ? ResponseEntity.ok("Player added") : ResponseEntity.badRequest().body("Could not add player");
     }
 
