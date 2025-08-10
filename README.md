@@ -8,4 +8,4 @@ Es Fehlt Architektur mäßig noch
 - Testing
 - MatchReportController, Service, Repo alle überarbeiten + CRUD
 - TestDataService
-- Momentan muss man spieler manuell in eine Liga adden (kein endpoint)
+- Momentan muss man spieler manuell in eine Liga adden (kein endpoint), eigentlich sollte league beim erstellen direkt set aller aktuellen spieler in die Map bekommen.
