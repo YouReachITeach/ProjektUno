@@ -6,6 +6,6 @@ Es Fehlt Architektur mäßig noch
 - Logging
 - Error Handling
 - Testing
-
-ACHTUNG: um einen spieler in einer Liga spielen zu lassen/löschen, nutze die Methoden in LeagueService.(maybe mal nen
-playerleagueservice machen)
+- MatchReportController, Service, Repo alle überarbeiten + CRUD
+- TestDataService
+- Momentan muss man spieler manuell in eine Liga adden (kein endpoint)
