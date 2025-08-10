@@ -41,6 +41,10 @@ public class UserTeam {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -79,5 +83,18 @@ public class UserTeam {
 
     public void setBudget(int budget) {
         this.budget = budget;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true; // Check for reference equality
+        if (o == null || getClass() != o.getClass()) return false; // Check for null and type
+        UserTeam userTeam = (UserTeam) o;
+        return id == userTeam.id; // Compare unique identifier
+    }
+
+    @Override
+    public int hashCode() {
+        return Long.hashCode(id);
     }
 }

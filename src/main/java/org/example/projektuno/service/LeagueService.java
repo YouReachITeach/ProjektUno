@@ -57,6 +57,16 @@ public class LeagueService {
         return false;
     }
 
+    public boolean deletePlayerFromUserTeam(League league, Player player, UserTeam userTeam) {
+        //in the Big Map, check if player is available and remove owner-team from the map
+        if (league.getPlayersMap().get(player) != null && league.getPlayersMap().get(player).equals(userTeam)) {
+            league.getPlayersMap().put(player, null);
+            leagueRepository.save(league);
+            return true;
+        }
+        return false;
+    }
+
     public Set<Player> getFreePlayers(int teamId) {
         Optional<League> league = leagueRepository.findById(teamId);
         if (league.isEmpty()) return null;
