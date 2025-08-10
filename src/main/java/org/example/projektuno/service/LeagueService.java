@@ -30,7 +30,8 @@ public class LeagueService {
         return leagueRepository.findById(id).orElse(null);
     }
 
-    public League createLeague(League league) {
+    public League createLeague(String name) {
+        League league = new League(name, new ArrayList<>());
         return leagueRepository.save(league);
     }
 

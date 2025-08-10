@@ -74,5 +74,18 @@ public class League implements Serializable {
         this.players = players;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true; // Check for reference equality
+        if (o == null || getClass() != o.getClass()) return false; // Check for null and type
+        League league = (League) o;
+        return id == league.id; // Compare unique identifier
+    }
+
+    @Override
+    public int hashCode() {
+        return id; // Use Integer.hashCode for int type
+    }
+
 
 }
