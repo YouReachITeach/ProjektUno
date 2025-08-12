@@ -19,6 +19,6 @@ public class ProjektUnoApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void execCodeAfterStartup() {
-        testDataService.setupTestData(); // 📌 liest auch Spielbericht und wertet ihn aus
+
     }
 }
