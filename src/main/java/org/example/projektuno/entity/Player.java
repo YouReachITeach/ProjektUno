@@ -31,7 +31,7 @@ public class Player implements Serializable {
         this.name = name;
     }
 
-    // Getter for JSON output (used in frontend)
+    // ÄNDERN!!!
     @JsonProperty("playerType")
     public String getPlayerType() {
         return this.getClass().getSimpleName().toUpperCase();
