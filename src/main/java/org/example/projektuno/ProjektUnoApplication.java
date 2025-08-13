@@ -42,7 +42,7 @@ public class ProjektUnoApplication {
     @EventListener(ApplicationReadyEvent.class)
     @Transactional
     public void execCodeAfterStartup() {
-        Player JoRauber = new Player("JoRauber", 100);
+        Player JoRauber = new Player("JoRauber", 10000);
         Player MoRauber = new Player("MoRauber", 200);
         Player RainerWinkler = new Player("RainerWinkler", 10);
         Player Detlef = new Player("Detlef", 400);

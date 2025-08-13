@@ -4,7 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import org.springframework.data.repository.CrudRepositoryExtensionsKt;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -21,10 +23,14 @@ public class League implements Serializable {
     @ManyToMany
     private Set<Player> freePlayers;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "league")
+    private Set<UserTeam> userTeams;
 
     // Constructors
     public League() {
         this.freePlayers = new HashSet<>();
+        this.userTeams = new HashSet<>();
     }
 
 
@@ -36,7 +42,13 @@ public class League implements Serializable {
 
 
     //getters and setters
+    public Set<UserTeam> getUserTeams() {
+        return userTeams;
+    }
 
+    public void setUserTeams(Set<UserTeam> userTeams) {
+        this.userTeams = userTeams;
+    }
     public void setName(String name) {
         this.name = name;
     }
