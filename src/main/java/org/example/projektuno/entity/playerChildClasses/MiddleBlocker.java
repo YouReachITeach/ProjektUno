@@ -16,8 +16,8 @@ public class MiddleBlocker extends Player {
         super();
     }
 
-    public MiddleBlocker(String name, int blocks, int spikes, int serviceAces, int blockErrors) {
-        super(name);
+    public MiddleBlocker(String name, int price, int blocks, int spikes, int serviceAces, int blockErrors) {
+        super(name, price);
         this.blocks = blocks;
         this.spikes = spikes;
         this.serviceAces = serviceAces;

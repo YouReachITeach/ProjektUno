@@ -15,8 +15,8 @@ public class ServingSpecialist extends Player {
         super();
     }
 
-    public ServingSpecialist(String name, int serviceAces, int serviceErrors, int servicePoints) {
-        super(name);
+    public ServingSpecialist(String name, int price, int serviceAces, int serviceErrors, int servicePoints) {
+        super(name, price);
         this.serviceAces = serviceAces;
         this.serviceErrors = serviceErrors;
         this.servicePoints = servicePoints;

@@ -16,8 +16,8 @@ public class Libero extends Player {
         super();
     }
 
-    public Libero(String name, int digs, int receptions, int serviceAces, int passingErrors) {
-        super(name);
+    public Libero(String name, int price, int digs, int receptions, int serviceAces, int passingErrors) {
+        super(name, price);
         this.digs = digs;
         this.receptions = receptions;
         this.serviceAces = serviceAces;

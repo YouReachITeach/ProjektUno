@@ -16,8 +16,8 @@ public class DefensiveSpecialist extends Player {
         super();
     }
 
-    public DefensiveSpecialist(String name, int digs, int receptions, int serviceAces, int passingErrors) {
-        super(name);
+    public DefensiveSpecialist(String name, int price, int digs, int receptions, int serviceAces, int passingErrors) {
+        super(name, price);
         this.digs = digs;
         this.receptions = receptions;
         this.serviceAces = serviceAces;

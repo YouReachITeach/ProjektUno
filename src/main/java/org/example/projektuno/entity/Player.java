@@ -27,8 +27,9 @@ public class Player implements Serializable {
     public Player() {
     }
 
-    public Player(String name) {
+    public Player(String name, int price) {
         this.name = name;
+        this.price = price;
     }
 
     // ÄNDERN!!!

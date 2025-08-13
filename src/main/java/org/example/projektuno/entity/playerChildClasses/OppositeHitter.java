@@ -16,8 +16,8 @@ public class OppositeHitter extends Player {
         super();
     }
 
-    public OppositeHitter(String name, int spikes, int blocks, int serviceAces, int attackErrors) {
-        super(name);
+    public OppositeHitter(String name, int price, int spikes, int blocks, int serviceAces, int attackErrors) {
+        super(name, price);
         this.spikes = spikes;
         this.blocks = blocks;
         this.serviceAces = serviceAces;
