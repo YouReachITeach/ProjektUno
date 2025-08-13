@@ -18,7 +18,7 @@ public class AppUserService {
         return userRepository.findAll();
     }
 
-    public Optional<AppUser> getUserById(Long id) {
+    public Optional<AppUser> getUserById(int id) {
         return userRepository.findById(id);
     }
 
@@ -26,11 +26,11 @@ public class AppUserService {
         return userRepository.save(user);
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(int id) {
         userRepository.deleteById(id);
     }
 
     public Optional<AppUser> findByUsername(String username) {
-    return userRepository.findByUsername(username);
+        return userRepository.findByUsername(username);
     }
 }

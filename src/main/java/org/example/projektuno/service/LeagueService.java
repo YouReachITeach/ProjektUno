@@ -22,6 +22,7 @@ public class LeagueService {
     private UserTeamRepository teamRepository;
 
 
+    //CRUD
     public List<League> getAllLeagues() {
         return leagueRepository.findAll();
     }
@@ -31,7 +32,11 @@ public class LeagueService {
     }
 
     public League createLeague(String name) {
-        League league = new League(name, new ArrayList<>());
+        League league = new League(name, new HashSet<>());
+        return leagueRepository.save(league);
+    }
+
+    public League createLeague(League league) {
         return leagueRepository.save(league);
     }
 
@@ -47,37 +52,32 @@ public class LeagueService {
         leagueRepository.deleteById(id);
     }
 
-    public boolean addPlayerToUserTeam(League league, Player player, UserTeam userTeam) {
 
-        //in the Big Map, check if player is available and add new owner-team to the map
-        if (league.getPlayersMap().get(player) == null) {
-            league.getPlayersMap().put(player, userTeam);
+    //Special:
+    public boolean addPlayerToUserTeam(League league, Player player) {
+        if (league.getFreePlayersSet().contains(player)) {
+            league.getFreePlayersSet().remove(player);
             leagueRepository.save(league);
             return true;
         }
         return false;
     }
 
-    public boolean deletePlayerFromUserTeam(League league, Player player, UserTeam userTeam) {
-        //in the Big Map, check if player is available and remove owner-team from the map
-        if (league.getPlayersMap().get(player) != null && league.getPlayersMap().get(player).equals(userTeam)) {
-            league.getPlayersMap().put(player, null);
+    public boolean deletePlayerFromUserTeam(League league, Player player) {
+        if (league.getFreePlayersSet().add(player)) {
             leagueRepository.save(league);
             return true;
         }
         return false;
     }
 
-    public Set<Player> getFreePlayers(int teamId) {
-        Optional<League> league = leagueRepository.findById(teamId);
-        if (league.isEmpty()) return null;
-        Map<Player, UserTeam> playersMap = league.get().getPlayersMap();
-        for (Player player : playersMap.keySet()) {
-            if (playersMap.get(player) != null) {
-                playersMap.remove(player);
-            }
+    public Set<Player> getFreePlayers(int leagueId) {
+        League league = leagueRepository.findById(leagueId).orElse(null);
+        if (league != null) {
+            return league.getFreePlayersSet();
+        } else {
+            return null;
         }
-        return playersMap.keySet();
     }
 
 

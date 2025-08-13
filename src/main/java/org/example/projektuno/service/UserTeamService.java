@@ -33,11 +33,12 @@ public class UserTeamService {
 
 
     // CRUD
-    public UserTeam createTeamForUser(UserTeam userTeam) {
+    public UserTeam createUserTeam(UserTeam userTeam) {
         return teamRepository.save(userTeam);
     }
 
-    public UserTeam updateTeam(long id, UserTeam userTeam) {
+    public UserTeam updateTeam(int id, UserTeam userTeam) {
+        UserTeam existingTeam = teamRepository.findById(id).orElse(null);
         if (teamRepository.existsById(id)) {
             userTeam.setId(id);
             return teamRepository.save(userTeam);
@@ -45,7 +46,7 @@ public class UserTeamService {
         return null;
     }
 
-    public void deleteTeam(long id) {
+    public void deleteTeam(int id) {
         teamRepository.deleteById(id);
     }
 
@@ -53,16 +54,20 @@ public class UserTeamService {
         return teamRepository.findAll();
     }
 
-    public List<UserTeam> getAllTeamsForUser(long id) {
+    public List<UserTeam> getAllTeamsForUser(int id) {
         List<UserTeam> teams = teamRepository.findAll();
         return teams.stream().filter(team -> team.getUser().getId() == id).toList();
 
     }
 
+    public Optional<UserTeam> getById(int id) {
+        return teamRepository.findById(id);
+    }
+
 
     //Special Methods
     @Transactional
-    public boolean addPlayerToUserTeam(Long teamId, int playerId, boolean verrechnen) {
+    public boolean addPlayerToUserTeam(int teamId, int playerId, boolean verrechnen) {
         //get player, userTeam and the teams league from the DB
         Optional<UserTeam> team = teamRepository.findById(teamId);
         if (team.isEmpty()) return false;
@@ -78,8 +83,8 @@ public class UserTeamService {
         //if team already owns this player, abort
         if (userTeam.getPlayers().contains(player)) return false;
 
-        //in the Big Map, check if player is available and add new owner-team to the map
-        if (!leagueService.addPlayerToUserTeam(league, player, userTeam)) {
+        //check if player is available/free
+        if (!leagueService.addPlayerToUserTeam(league, player)) {
             return false;
         }
 
@@ -94,7 +99,7 @@ public class UserTeamService {
     }
 
     @Transactional
-    public boolean deletePlayerFromUserTeam(long teamId, int playerId, boolean verrechnen) {
+    public boolean deletePlayerFromUserTeam(int teamId, int playerId, boolean verrechnen) {
         //get player, userTeam and the teams league from the DB
         Optional<UserTeam> team = teamRepository.findById(teamId);
         if (team.isEmpty()) return false;
@@ -108,8 +113,8 @@ public class UserTeamService {
         //check if the userTeam contains the player
         if (!userTeam.getPlayers().contains(player)) return false;
 
-        //in the Big Map, check if player is available and remove owner-team from the map
-        if (!leagueService.deletePlayerFromUserTeam(league, player, userTeam)) return false;
+        //remove the player from the league's free players set
+        if (!leagueService.deletePlayerFromUserTeam(league, player)) return false;
 
         if (!userTeam.getPlayers().remove(player)) return false;
 

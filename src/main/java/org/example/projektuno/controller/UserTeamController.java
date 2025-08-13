@@ -25,44 +25,60 @@ public class UserTeamController {
     private AppUserService userService;
 
     @GetMapping("/allByUserID/{userId}")
-    public ResponseEntity<?> getTeamByUser(@PathVariable Long userId) {
+    public ResponseEntity<?> getTeamByUser(@PathVariable int userId) {
         List<UserTeam> team = teamService.getAllTeamsForUser(userId);
         return new ResponseEntity<>(team, HttpStatus.OK);
     }
 
+    @GetMapping("/getAllTeams")
+    public ResponseEntity<?> getAllTeams() {
+        List<UserTeam> teams = teamService.getAllUserTeams();
+        return ResponseEntity.ok(teams);
+    }
+
+    @GetMapping("/getByTeamId/{teamId}")
+    public ResponseEntity<?> getTeamById(@PathVariable int teamId) {
+        Optional<UserTeam> team = teamService.getById(teamId);
+        if (team.isPresent()) {
+            return ResponseEntity.ok(team.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Team not found");
+        }
+    }
+
     @PostMapping("/createTeam")
-    public ResponseEntity<UserTeam> createTeam(@RequestParam String name, @RequestParam Long userId) {
+    public ResponseEntity<UserTeam> createTeam(@RequestParam String name, @RequestParam int userId) {
         AppUser user = userService.getUserById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         UserTeam userTeam = new UserTeam(name, user, 1000);
-        UserTeam team = teamService.createTeamForUser(userTeam);
+        UserTeam team = teamService.createUserTeam(userTeam);
         return ResponseEntity.ok(team);
     }
 
 
     @PostMapping("/{teamId}/addPlayer/{playerId}")
-    public ResponseEntity<?> addPlayer(@PathVariable Long teamId, @PathVariable int playerId) {
+    public ResponseEntity<?> addPlayer(@PathVariable int teamId, @PathVariable int playerId) {
         boolean success = teamService.addPlayerToUserTeam(teamId, playerId, false);
         return success ? ResponseEntity.ok("Player added") : ResponseEntity.badRequest().body("Could not add player");
     }
 
 
     @PostMapping("/{teamId}/buyPlayer/{playerId}")
-    public ResponseEntity<String> buyPlayer(@PathVariable Long teamId, @PathVariable int playerId) {
+    public ResponseEntity<String> buyPlayer(@PathVariable int teamId, @PathVariable int playerId) {
         boolean success = teamService.addPlayerToUserTeam(teamId, playerId, true);
         return success ? ResponseEntity.ok("Spieler erfolgreich gekauft.")
                 : ResponseEntity.badRequest().body("Kauf fehlgeschlagen (Team, Spieler oder Budgetproblem).");
     }
 
     @DeleteMapping("/{teamId}/removePlayer/{playerId}")
-    public ResponseEntity<String> removePlayer(@PathVariable Long teamId, @PathVariable int playerId) {
+    public ResponseEntity<String> removePlayer(@PathVariable int teamId, @PathVariable int playerId) {
         boolean success = teamService.deletePlayerFromUserTeam(teamId, playerId, false);
         return success ? ResponseEntity.ok("Player removed") : ResponseEntity.badRequest().body("Could not remove player");
     }
 
     @DeleteMapping("/{teamId}/sellPlayer/{playerId}")
-    public ResponseEntity<String> sellPlayer(@PathVariable Long teamId, @PathVariable int playerId) {
+    public ResponseEntity<String> sellPlayer(@PathVariable int teamId, @PathVariable int playerId) {
         boolean success = teamService.deletePlayerFromUserTeam(teamId, playerId, true);
         return success
                 ? ResponseEntity.ok("Spieler verkauft")

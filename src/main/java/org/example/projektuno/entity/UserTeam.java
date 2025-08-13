@@ -3,14 +3,16 @@ package org.example.projektuno.entity;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class UserTeam {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private int id;
 
     private String name;
 
@@ -24,7 +26,7 @@ public class UserTeam {
 
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<Player> players = new ArrayList<>();
+    private Set<Player> players = new HashSet<>();
 
 
     public UserTeam() {
@@ -37,11 +39,11 @@ public class UserTeam {
     }
 
     // Getter & Setter
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -61,12 +63,13 @@ public class UserTeam {
         this.user = user;
     }
 
-    public List<Player> getPlayers() {
+    public Set<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<Player> players) {
-        this.players = players;
+    public void setPlayers(Set<Player> players) {
+        this.players.clear();
+        this.players.addAll(players);
     }
 
     public League getLeague() {
@@ -90,11 +93,12 @@ public class UserTeam {
         if (this == o) return true; // Check for reference equality
         if (o == null || getClass() != o.getClass()) return false; // Check for null and type
         UserTeam userTeam = (UserTeam) o;
-        return id == userTeam.id; // Compare unique identifier
+        if (id == 0 && userTeam.id == 0) return false; //check for unpersisted entities
+        return id == userTeam.id; // Compare IDs
     }
 
     @Override
     public int hashCode() {
-        return Long.hashCode(id);
+        return id;
     }
 }

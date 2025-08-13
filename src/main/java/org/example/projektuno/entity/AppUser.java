@@ -3,13 +3,15 @@ package org.example.projektuno.entity;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class AppUser {
     @Id
     @GeneratedValue
-    private Long id;
+    private int id;
 
     @Column(unique = true)
     private String username;
@@ -17,7 +19,7 @@ public class AppUser {
 
     @Column
     @OneToMany
-    private List<UserTeam> userTeams = new ArrayList<>();
+    private Set<UserTeam> userTeams = new HashSet<>();
 
     private String email;
 
@@ -34,7 +36,7 @@ public class AppUser {
     }
 
     // Getter & Setter
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
@@ -62,17 +64,23 @@ public class AppUser {
         this.password = password;
     }
 
+    public void setUserTeams(Set<UserTeam> userTeams) {
+        this.userTeams.clear();
+        this.userTeams.addAll(userTeams);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true; // Check for reference equality
         if (o == null || getClass() != o.getClass()) return false; // Check for null and type
         AppUser appUser = (AppUser) o;
+        if (id == 0 && appUser.id == 0) return false;
         return id == appUser.id; // Compare unique identifier
     }
 
     @Override
     public int hashCode() {
-        return Long.hashCode(id); // Use Integer.hashCode for int type
+        return id; // Use Integer.hashCode for int type
     }
 
 

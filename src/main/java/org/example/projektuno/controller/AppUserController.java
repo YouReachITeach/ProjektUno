@@ -22,7 +22,7 @@ public class AppUserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+    public ResponseEntity<?> getUserById(@PathVariable int id) {
         Optional<AppUser> user = userService.getUserById(id);
         return user.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -34,7 +34,7 @@ public class AppUserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUser(@PathVariable int id) {
         userService.deleteUser(id);
         return ResponseEntity.ok().build();
     }

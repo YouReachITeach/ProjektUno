@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserTeamRepository extends JpaRepository<UserTeam, Long> {
+public interface UserTeamRepository extends JpaRepository<UserTeam, Integer> {
 
 }

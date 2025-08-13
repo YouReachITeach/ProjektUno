@@ -78,12 +78,13 @@ public class Player implements Serializable {
         if (this == o) return true; // Check for reference equality
         if (o == null || getClass() != o.getClass()) return false; // Check for null and type
         Player player = (Player) o;
+        if (id == 0 && player.id == 0) return false;
         return id == player.id; // Compare unique identifier
     }
 
     @Override
     public int hashCode() {
-        return Long.hashCode(id);
+        return id;
     }
 
 }
