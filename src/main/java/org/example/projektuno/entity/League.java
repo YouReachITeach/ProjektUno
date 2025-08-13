@@ -47,8 +47,10 @@ public class League implements Serializable {
     }
 
     public void setUserTeams(Set<UserTeam> userTeams) {
-        this.userTeams = userTeams;
+        this.userTeams.clear();
+        this.userTeams.addAll(userTeams);
     }
+
     public void setName(String name) {
         this.name = name;
     }
