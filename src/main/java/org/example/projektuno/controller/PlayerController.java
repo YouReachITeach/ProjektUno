@@ -16,7 +16,7 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-    @GetMapping("/getAllPlayers")
+    @GetMapping()
     public ResponseEntity<?> getAllPlayers() {
         return new ResponseEntity<>(playerService.getAllPlayers(), HttpStatus.OK);
     }
@@ -30,7 +30,7 @@ public class PlayerController {
         return new ResponseEntity<>(playerType, HttpStatus.OK);
     }
 
-    @GetMapping("/getPlayerById/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getPlayerById(@PathVariable int id) {
         Player player = playerService.getPlayerById(id);
         if (player == null) {
@@ -39,12 +39,12 @@ public class PlayerController {
         return new ResponseEntity<>(player, HttpStatus.OK);
     }
 
-    @PostMapping("/createPlayer")
+    @PostMapping()
     public ResponseEntity<?> createPlayer(@RequestBody Player player) {
         return new ResponseEntity<>(playerService.createPlayer(player), HttpStatus.CREATED);
     }
 
-    @PutMapping("/updatePlayer/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updatePlayer(@PathVariable int id, @RequestBody Player player) {
         Player updatedPlayer = playerService.updatePlayer(id, player);
         if (updatedPlayer != null) {
@@ -54,7 +54,7 @@ public class PlayerController {
         }
     }
 
-    @DeleteMapping("/deletePlayer/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePlayer(@PathVariable int id) {
         playerService.deletePlayer(id);
         return new ResponseEntity<String>("deleted", HttpStatus.OK);

@@ -30,13 +30,13 @@ public class UserTeamController {
         return new ResponseEntity<>(team, HttpStatus.OK);
     }
 
-    @GetMapping("/getAllTeams")
+    @GetMapping()
     public ResponseEntity<?> getAllTeams() {
         List<UserTeam> teams = teamService.getAllUserTeams();
         return ResponseEntity.ok(teams);
     }
 
-    @GetMapping("/getByTeamId/{teamId}")
+    @GetMapping("/{teamId}")
     public ResponseEntity<?> getTeamById(@PathVariable int teamId) {
         Optional<UserTeam> team = teamService.getById(teamId);
         if (team.isPresent()) {
@@ -46,7 +46,7 @@ public class UserTeamController {
         }
     }
 
-    @PostMapping("/createTeam")
+    @PostMapping()
     public ResponseEntity<UserTeam> createTeam(@RequestParam String name, @RequestParam int userId) {
         AppUser user = userService.getUserById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));

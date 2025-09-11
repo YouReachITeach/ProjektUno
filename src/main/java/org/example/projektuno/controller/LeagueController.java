@@ -19,12 +19,12 @@ public class LeagueController {
     @Autowired
     private LeagueService leagueService;
 
-    @GetMapping("/getAllLeagues")
+    @GetMapping()
     public ResponseEntity<?> getAllLeagues() {
         return new ResponseEntity<>(leagueService.getAllLeagues(), HttpStatus.OK);
     }
 
-    @GetMapping("/getLeagueById/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getLeagueById(@PathVariable int id) {
         League league = leagueService.getLeagueById(id);
         if (league == null) {
@@ -33,7 +33,7 @@ public class LeagueController {
         return new ResponseEntity<>(league, HttpStatus.OK);
     }
 
-    @GetMapping("/getAllFreePlayersByLeagueId/{id}")
+    @GetMapping("/freePlayers/{id}")
     public ResponseEntity<?> getAllFreePLayersByLeagueId(@PathVariable int id) {
         Set<Player> leagues = leagueService.getFreePlayers(id);
         if (leagues == null || leagues.isEmpty()) {
@@ -42,13 +42,14 @@ public class LeagueController {
         return new ResponseEntity<>(leagues, HttpStatus.OK);
     }
 
-    @PostMapping("/createLeague/{name}")
+    //hier nur name als Parameter, da rest automatisch generiert wird
+    @PostMapping("/{name}")
     public ResponseEntity<?> createLeague(@PathVariable String name) {
         return new ResponseEntity<>(leagueService.createLeague(name).getId(), HttpStatus.CREATED);
         //returns the ID of the created League for further referencing in Frontend
     }
 
-    @PutMapping("/updateLeague/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateLeague(@PathVariable int id, @RequestBody League league) {
         League updatedLeague = leagueService.updateLeague(id, league);
         if (updatedLeague != null) {
@@ -58,9 +59,9 @@ public class LeagueController {
         }
     }
 
-    //@PutMapping("/putPlayerListInLeague")
+    //@PutMapping("/putPlayerListInLeague") fehlt noch
 
-    @DeleteMapping("/deleteLeague/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteLeague(@PathVariable int id) {
         leagueService.deleteLeague(id);
         return new ResponseEntity<Void>(HttpStatus.OK);

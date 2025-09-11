@@ -16,7 +16,7 @@ public class AppUserController {
     @Autowired
     private AppUserService userService;
 
-    @GetMapping
+    @GetMapping()
     public List<AppUser> getAllUsers() {
         return userService.getAllUsers();
     }
@@ -28,7 +28,7 @@ public class AppUserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/createUser")
+    @PostMapping()
     public AppUser createUser(@RequestBody AppUser user) {
         return userService.createUser(user);
     }
