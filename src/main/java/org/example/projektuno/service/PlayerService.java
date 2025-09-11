@@ -21,6 +21,14 @@ public class PlayerService {
     }
 
 
+    public String getPlayerType(int id) {
+        Player player = playerRepository.findById(id).orElse(null);
+        if (player == null) {
+            return null;
+        }
+        return player.getPlayerType();
+    }
+
     public Player getPlayerById(int id) {
         return playerRepository.findById(id).orElse(null);
     }

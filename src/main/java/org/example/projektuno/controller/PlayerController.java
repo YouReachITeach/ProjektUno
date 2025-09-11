@@ -21,6 +21,15 @@ public class PlayerController {
         return new ResponseEntity<>(playerService.getAllPlayers(), HttpStatus.OK);
     }
 
+    @GetMapping("/getPlayerType/{id}")
+    public ResponseEntity<?> getPlayerType(@PathVariable int id) {
+        String playerType = playerService.getPlayerType(id);
+        if (playerType == null) {
+            return new ResponseEntity<>("Player not found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(playerType, HttpStatus.OK);
+    }
+
     @GetMapping("/getPlayerById/{id}")
     public ResponseEntity<?> getPlayerById(@PathVariable int id) {
         Player player = playerService.getPlayerById(id);
