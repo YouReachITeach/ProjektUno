@@ -59,7 +59,26 @@ public class LeagueController {
         }
     }
 
-    //@PutMapping("/putPlayerListInLeague") fehlt noch
+    //@PutMapping("/putPlayerSetInLeague") fehlt noch
+    @PutMapping("addPlayer/{leagueId}/{playerId}")
+    public ResponseEntity<?> addPlayer(@PathVariable int leagueId, @PathVariable int playerId) {
+        League updatedLeague = leagueService.addPlayer(leagueId, playerId);
+        if (updatedLeague != null) {
+            return new ResponseEntity<>(updatedLeague, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("League or Player not found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("addPlayerSet/{leagueId}")
+    public ResponseEntity<?> addPlayerSet(@PathVariable int leagueId, @RequestBody Set<Player> players) {
+        League updatedLeague = leagueService.addPlayerSet(leagueId, players);
+        if (updatedLeague != null) {
+            return new ResponseEntity<>(updatedLeague, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("League not found", HttpStatus.NOT_FOUND);
+        }
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteLeague(@PathVariable int id) {

@@ -15,3 +15,7 @@ Fehlen tut noch
 
 - den spielertyp rausfinden geht gerade mit komischen java workarounds (siehe klasse player), eigentlich gibt es spalte
   in der db dafür.
+
+
+- einpflegen von spielern in datenbank: erst Spierler erstellen und speichern, dann mit spielerID in die ligen
+  hinzufügen.

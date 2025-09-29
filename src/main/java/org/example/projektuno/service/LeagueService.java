@@ -40,6 +40,28 @@ public class LeagueService {
         return leagueRepository.save(league);
     }
 
+    public League addPlayer(int leagueID, int playerID) {
+        Optional<League> league = leagueRepository.findById(leagueID);
+        if (league.isEmpty()) return null;
+        Optional<Player> player = playerRepository.findById(playerID);
+        if (player.isEmpty()) return null;
+        League leagueGot = league.get();
+        Player playerGot = player.get();
+        leagueGot.getFreePlayersSet().add(playerGot);
+        return leagueRepository.save(leagueGot);
+    }
+
+    public League addPlayerSet(int leagueID, Set<Player> players) {
+        Optional<League> league = leagueRepository.findById(leagueID);
+        if (league.isEmpty()) return null;
+        League leagueGot = league.get();
+        for (Player p : players) {
+            Optional<Player> player = playerRepository.findById(p.getId());
+            player.ifPresent(leagueGot.getFreePlayersSet()::add);
+        }
+        return leagueRepository.save(leagueGot);
+    }
+
     public League updateLeague(int id, League league) {
         if (leagueRepository.existsById(id)) {
             league.setId(id);
