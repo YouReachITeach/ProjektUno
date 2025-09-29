@@ -52,8 +52,7 @@ public class ProjektUnoApplication {
         Detlef = playerService.createPlayer(Detlef);
         AppUser appUser = new AppUser();
         appUser = appUserService.createUser(appUser);
-        UserTeam userTeam = new UserTeam("gooners", appUser, 500);
-        userTeam = userTeamService.createUserTeam(userTeam);
+
         Set<Player> players = new HashSet<>();
         players.add(JoRauber);
         players.add(MoRauber);
@@ -61,8 +60,9 @@ public class ProjektUnoApplication {
         players.add(Detlef);
         League league1 = new League("bundesliga", players);
         league1 = leagueService.createLeague(league1);
-        userTeam.setLeague(league1);
-        userTeam = userTeamService.updateTeam(userTeam.getId(), userTeam);
+
+        UserTeam userTeam = userTeamService.createUserTeam(appUser.getId(), league1.getId(), "DieAmateure");
+
         System.out.println("Gesichert: " + league1.getFreePlayersSet());
 
         League league = leagueService.getLeagueById(1);

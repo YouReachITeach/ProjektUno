@@ -33,7 +33,7 @@ public class LeagueController {
         return new ResponseEntity<>(league, HttpStatus.OK);
     }
 
-    @GetMapping("/freePlayers/{id}")
+    @GetMapping("/{id}/freePlayers")
     public ResponseEntity<?> getAllFreePLayersByLeagueId(@PathVariable int id) {
         Set<Player> leagues = leagueService.getFreePlayers(id);
         if (leagues == null || leagues.isEmpty()) {
@@ -60,7 +60,7 @@ public class LeagueController {
     }
 
     //@PutMapping("/putPlayerSetInLeague") fehlt noch
-    @PutMapping("addPlayer/{leagueId}/{playerId}")
+    @PutMapping("/addPlayer/{leagueId}/{playerId}")
     public ResponseEntity<?> addPlayer(@PathVariable int leagueId, @PathVariable int playerId) {
         League updatedLeague = leagueService.addPlayer(leagueId, playerId);
         if (updatedLeague != null) {
@@ -70,7 +70,7 @@ public class LeagueController {
         }
     }
 
-    @PutMapping("addPlayerSet/{leagueId}")
+    @PutMapping("/addPlayerSet/{leagueId}")
     public ResponseEntity<?> addPlayerSet(@PathVariable int leagueId, @RequestBody Set<Player> players) {
         League updatedLeague = leagueService.addPlayerSet(leagueId, players);
         if (updatedLeague != null) {

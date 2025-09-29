@@ -38,6 +38,7 @@ public class League implements Serializable {
         this.name = name;
         this.freePlayers = new HashSet<>();
         this.freePlayers.addAll(players);
+        this.userTeams = new HashSet<>();
     }
 
 

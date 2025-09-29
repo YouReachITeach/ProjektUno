@@ -46,13 +46,12 @@ public class UserTeamController {
         }
     }
 
-    @PostMapping()
-    public ResponseEntity<UserTeam> createTeam(@RequestParam String name, @RequestParam int userId) {
-        AppUser user = userService.getUserById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        UserTeam userTeam = new UserTeam(name, user, 1000);
-        UserTeam team = teamService.createUserTeam(userTeam);
+    @PostMapping("/{userId}/{leagueId}/{teamName}")
+    public ResponseEntity<UserTeam> createTeam(@PathVariable int userId, @PathVariable int leagueId, @PathVariable String teamName) {
+        UserTeam team = teamService.createUserTeam(userId, leagueId, teamName);
+        if (team == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
         return ResponseEntity.ok(team);
     }
 

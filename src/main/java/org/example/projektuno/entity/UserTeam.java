@@ -2,6 +2,7 @@ package org.example.projektuno.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,10 +32,11 @@ public class UserTeam {
     public UserTeam() {
     }
 
-    public UserTeam(String name, AppUser user, int budget) {
+    public UserTeam(String name, AppUser user, int budget, League league) {
         this.name = name;
         this.user = user;
         this.budget = budget;
+        this.league = league;
     }
 
     // Getter & Setter

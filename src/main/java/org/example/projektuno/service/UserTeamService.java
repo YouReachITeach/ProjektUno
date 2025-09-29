@@ -6,6 +6,7 @@ import org.example.projektuno.entity.AppUser;
 import org.example.projektuno.entity.League;
 import org.example.projektuno.entity.Player;
 import org.example.projektuno.entity.UserTeam;
+import org.example.projektuno.repositories.AppUserRepository;
 import org.example.projektuno.repositories.LeagueRepository;
 import org.example.projektuno.repositories.PlayerRepository;
 import org.example.projektuno.repositories.UserTeamRepository;
@@ -30,10 +31,18 @@ public class UserTeamService {
 
     @Autowired
     private LeagueService leagueService;
-
+    @Autowired
+    private AppUserRepository appUserRepository;
 
     // CRUD
-    public UserTeam createUserTeam(UserTeam userTeam) {
+    public UserTeam createUserTeam(int userID, int leagueID, String teamName) {
+        AppUser user = appUserRepository.findById(userID).orElse(null);
+        if (user == null) return null;
+        League league = leagueRepository.findById(leagueID).orElse(null);
+        if (league == null) return null;
+        UserTeam userTeam = new UserTeam(teamName, user, 1000, league);
+        league.getUserTeams().add(userTeam);
+        leagueRepository.save(league);
         return teamRepository.save(userTeam);
     }
 
