@@ -2,6 +2,7 @@ Bisher ist die Basic Layered Architecture in der Version 2.1.0
 
 Fehlen tut noch
 
+- Von nem UserTeam die League ID fetchen damit man weiß in welcher Liga das Team spielt(falls später nötig)
 - Security(JWT Token)
 - Logging
 - Error Handling
@@ -16,6 +17,7 @@ Fehlen tut noch
 - den spielertyp rausfinden geht gerade mit komischen java workarounds (siehe klasse player), eigentlich gibt es spalte
   in der db dafür.
 
+-
 
-- einpflegen von spielern in datenbank: erst Spierler erstellen und speichern, dann mit spielerID in die ligen
+- einpflegen von spielern in datenbank: erst Spieler erstellen und speichern, dann mit spielerID in die ligen
   hinzufügen.
