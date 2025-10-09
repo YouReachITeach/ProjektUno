@@ -1,7 +1,7 @@
 Bisher ist die Basic Layered Architecture in der Version 2.1.0
 
 Fehlen tut noch
-
+- swagger doc für die API
 - Von nem UserTeam die League ID fetchen damit man weiß in welcher Liga das Team spielt(falls später nötig)
 - Security(JWT Token)
 - Logging
