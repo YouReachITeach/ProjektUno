@@ -2,9 +2,8 @@ package org.example.projektuno.entity;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
+
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,7 +17,7 @@ public class AppUser {
 
 
     @Column
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private Set<UserTeam> userTeams = new HashSet<>();
 
     private String email;

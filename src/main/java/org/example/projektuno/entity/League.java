@@ -5,10 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import org.springframework.data.repository.CrudRepositoryExtensionsKt;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 
@@ -17,7 +15,6 @@ public class League implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-
     private String name;
 
     @ManyToMany
